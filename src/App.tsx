@@ -39,10 +39,6 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
           </Route>
 
-          {/* Full-screen pages (no bottom nav) */}
-          <Route element={<MobileShell><main className="flex-1 overflow-y-auto"><Route /></main></MobileShell>}>
-          </Route>
-          
           {/* Standalone pages wrapped in shell */}
           <Route path="/join" element={<MobileShell><Join /></MobileShell>} />
           <Route path="/join/:code" element={<MobileShell><Join /></MobileShell>} />
