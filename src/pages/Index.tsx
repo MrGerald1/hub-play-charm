@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Gamepad2, Users, Zap } from "lucide-react";
+import { ArrowRight, Gamepad2, Users, Zap, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GameCard from "@/components/GameCard";
@@ -20,13 +20,21 @@ const Index = () => {
 
   return (
     <div className="px-5 py-6 pb-4 space-y-8">
+      {/* Coin counter */}
+      <div className="flex justify-end">
+        <div className="flex items-center gap-1.5 bg-muted rounded-full px-3 py-1.5">
+          <Coins className="h-4 w-4 text-coin" />
+          <span className="font-display font-bold text-sm text-coin">1,250</span>
+        </div>
+      </div>
+
       {/* Hero */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center space-y-4 pt-4"
+        className="text-center space-y-4"
       >
-        <h1 className="text-3xl font-display font-bold leading-tight">
+        <h1 className="text-4xl font-display font-bold leading-tight">
           Play Together,{" "}
           <span className="text-gradient">Anywhere</span>
         </h1>
@@ -46,7 +54,7 @@ const Index = () => {
           <Button
             onClick={() => roomCode && navigate(`/room/${roomCode}`)}
             disabled={roomCode.length < 4}
-            className="bg-gradient-primary hover:opacity-90 text-primary-foreground font-display font-bold px-5"
+            className="bg-gradient-primary hover:opacity-90 text-primary-foreground font-display font-bold px-5 btn-3d"
           >
             Join
           </Button>
@@ -97,10 +105,10 @@ const Index = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + i * 0.1 }}
-              className="flex-1 rounded-xl border border-border bg-card p-3 text-center space-y-2"
+              className="flex-1 rounded-2xl border border-border bg-card p-3 text-center space-y-2"
             >
-              <div className="mx-auto w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Icon className="h-4 w-4 text-primary" />
+              <div className="mx-auto w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Icon className="h-5 w-5 text-primary" />
               </div>
               <p className="font-display font-bold text-xs text-foreground">{title}</p>
               <p className="text-[10px] text-muted-foreground leading-tight">{desc}</p>
