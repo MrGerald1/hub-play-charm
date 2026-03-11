@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { games } from "@/data/games";
+import { games, familyConfig } from "@/data/games";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Users, Play } from "lucide-react";
@@ -18,6 +18,7 @@ const GameDetail = () => {
     );
   }
 
+  const family = familyConfig[game.family];
   const roomCode = Math.random().toString(36).substring(2, 6).toUpperCase();
 
   return (
@@ -27,7 +28,10 @@ const GameDetail = () => {
       </button>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center space-y-4">
-        <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${game.color} flex items-center justify-center text-4xl`}>
+        <div
+          className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl"
+          style={{ background: `${family.color}20` }}
+        >
           {game.emoji}
         </div>
         <h1 className="font-display font-bold text-2xl text-foreground">{game.name}</h1>
@@ -37,14 +41,19 @@ const GameDetail = () => {
             <Users className="h-3 w-3 mr-1" /> {game.players} players
           </Badge>
           <Badge variant="outline" className="border-border text-muted-foreground">{game.mode}</Badge>
-          <Badge variant="outline" className="border-border text-muted-foreground capitalize">{game.category}</Badge>
+          <Badge
+            className="border-0 text-white"
+            style={{ background: family.color }}
+          >
+            {family.mascotEmoji} {family.label}
+          </Badge>
         </div>
       </motion.div>
 
       <div className="space-y-3">
         <Button
           onClick={() => navigate(`/room/${roomCode}`)}
-          className="w-full h-14 bg-gradient-primary text-primary-foreground font-display font-bold text-lg glow-primary"
+          className="w-full h-14 bg-gradient-primary text-primary-foreground font-display font-bold text-lg btn-3d"
         >
           <Play className="h-5 w-5 mr-2" /> Create Room
         </Button>
