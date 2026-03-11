@@ -26,8 +26,8 @@ const Play = () => {
     }
     const matchesCategory = activeCategory === "all"
       ? (!g.is18Plus || show18Plus)
-      : g.family === activeCategory || g.category === activeCategory;
-    return matchesSearch && matchesCategory && (!g.is18Plus || show18Plus || activeCategory === "adult");
+      : g.family === (activeCategory as string) || g.category === (activeCategory as string);
+    return matchesSearch && matchesCategory && (!g.is18Plus || show18Plus || activeCategory === ("adult" as Category));
   });
 
   return (
