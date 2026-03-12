@@ -2,24 +2,36 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import GameCard from "@/components/GameCard";
-import { games, categories, type Category } from "@/data/games";
+import { games, familyConfig, type GameFamily } from "@/data/games";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
+const familyFilters: { key: "all" | GameFamily; label: string; emoji: string }[] = [
+  { key: "all", label: "All", emoji: "🎮" },
+  { key: "knowledge", label: "Knowledge", emoji: "🧠" },
+  { key: "party", label: "Party", emoji: "🎉" },
+  { key: "solo", label: "Solo Skill", emoji: "⚡" },
+  { key: "adult", label: "18+", emoji: "😈" },
+];
+
 const Play = () => {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<Category>("all");
+  const [activeFamily, setActiveFamily] = useState<"all" | GameFamily>("all");
+  const [adultEnabled] = useState(() => localStorage.getItem("playhub_18plus") === "true");
 
   const filtered = games.filter((g) => {
+    if (g.isAdult && !adultEnabled) return false;
     const matchesSearch = g.name.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory = activeCategory === "all" || g.category === activeCategory;
-    return matchesSearch && matchesCategory;
+    const matchesFamily = activeFamily === "all" || g.family === activeFamily;
+    return matchesSearch && matchesFamily;
   });
+
+  const visibleFilters = adultEnabled ? familyFilters : familyFilters.filter((f) => f.key !== "adult");
 
   return (
     <div className="px-5 py-6 space-y-5">
       <div>
-        <h1 className="font-display font-bold text-2xl text-foreground">Games</h1>
+        <h1 className="font-display font-bold text-2xl text-foreground">🎮 Games</h1>
         <p className="text-muted-foreground text-sm">Pick a game to start playing</p>
       </div>
 
@@ -30,24 +42,25 @@ const Play = () => {
           placeholder="Search games..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-9 bg-muted border-border"
+          className="pl-9 bg-muted border-border rounded-xl"
         />
       </div>
 
-      {/* Category chips */}
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-        {categories.map((cat) => (
+      {/* Family filter chips */}
+      <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+        {visibleFilters.map((fam) => (
           <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
+            key={fam.key}
+            onClick={() => setActiveFamily(fam.key)}
             className={cn(
-              "px-4 py-1.5 rounded-full text-xs font-medium capitalize whitespace-nowrap transition-all",
-              activeCategory === cat
+              "px-4 py-2 rounded-xl text-xs font-display font-medium capitalize whitespace-nowrap transition-all flex items-center gap-1.5",
+              activeFamily === fam.key
                 ? "bg-primary text-primary-foreground glow-primary"
                 : "bg-muted text-muted-foreground hover:text-foreground"
             )}
           >
-            {cat}
+            <span>{fam.emoji}</span>
+            {fam.label}
           </button>
         ))}
       </div>
@@ -60,8 +73,9 @@ const Play = () => {
       </motion.div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-muted-foreground text-sm">
-          No games found matching "{search}"
+        <div className="text-center py-12 space-y-2">
+          <div className="text-4xl">🔍</div>
+          <p className="text-muted-foreground text-sm">No games found matching "{search}"</p>
         </div>
       )}
     </div>
