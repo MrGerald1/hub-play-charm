@@ -2,27 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 240 20% 4%;
+    --foreground: 240 10% 95%;
 
-    --card: 217 33% 14%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 15% 8%;
+    --card-foreground: 240 10% 95%;
 
-    --popover: 217 33% 14%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 15% 8%;
+    --popover-foreground: 240 10% 95%;
 
-    --primary: 258 90% 66%;
+    --primary: 239 84% 67%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 33% 18%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 263 70% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 217 33% 18%;
-    --muted-foreground: 215 20% 55%;
+    --muted: 240 10% 14%;
+    --muted-foreground: 240 5% 55%;
 
     --accent: 330 81% 60%;
     --accent-foreground: 0 0% 100%;
@@ -30,35 +30,23 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
-    --ring: 258 90% 66%;
+    --border: 240 10% 16%;
+    --input: 240 10% 16%;
+    --ring: 239 84% 67%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Game family colors */
-    --family-knowledge: 199 89% 60%;
-    --family-party: 25 95% 53%;
-    --family-adult: 350 89% 60%;
-    --family-solo: 263 78% 72%;
-    --family-surprise: 43 96% 56%;
-
-    /* Feedback colors */
-    --success: 142 71% 45%;
-    --warning: 43 96% 56%;
-    --error: 0 84% 60%;
-
-    /* Coin color */
-    --coin: 43 96% 56%;
-
-    --sidebar-background: 222 47% 9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 258 90% 66%;
+    --sidebar-background: 240 15% 6%;
+    --sidebar-foreground: 240 10% 95%;
+    --sidebar-primary: 239 84% 67%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 18%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 20%;
-    --sidebar-ring: 258 90% 66%;
+    --sidebar-accent: 240 10% 14%;
+    --sidebar-accent-foreground: 240 10% 95%;
+    --sidebar-border: 240 10% 16%;
+    --sidebar-ring: 239 84% 67%;
+
+    --success: 142 71% 45%;
+    --warning: 38 92% 50%;
   }
 }
 
@@ -68,116 +56,35 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
   }
 }
 
 @layer utilities {
-  /* Glow effects */
   .glow-primary {
-    box-shadow: 0 0 20px hsl(258 90% 66% / 0.3), 0 0 60px hsl(258 90% 66% / 0.1);
+    box-shadow: 0 0 20px hsl(239 84% 67% / 0.3), 0 0 60px hsl(239 84% 67% / 0.1);
   }
   .glow-accent {
     box-shadow: 0 0 20px hsl(330 81% 60% / 0.3), 0 0 60px hsl(330 81% 60% / 0.1);
   }
-  .glow-knowledge {
-    box-shadow: 0 0 20px hsl(199 89% 60% / 0.3), 0 0 60px hsl(199 89% 60% / 0.1);
+  .glow-secondary {
+    box-shadow: 0 0 20px hsl(263 70% 50% / 0.3), 0 0 60px hsl(263 70% 50% / 0.1);
   }
-  .glow-party {
-    box-shadow: 0 0 20px hsl(25 95% 53% / 0.3), 0 0 60px hsl(25 95% 53% / 0.1);
-  }
-  .glow-adult {
-    box-shadow: 0 0 20px hsl(350 89% 60% / 0.3), 0 0 60px hsl(350 89% 60% / 0.1);
-  }
-  .glow-solo {
-    box-shadow: 0 0 20px hsl(263 78% 72% / 0.3), 0 0 60px hsl(263 78% 72% / 0.1);
-  }
-  .glow-surprise {
-    box-shadow: 0 0 20px hsl(43 96% 56% / 0.3), 0 0 60px hsl(43 96% 56% / 0.1);
-  }
-
-  /* Text gradient */
   .text-gradient {
-    background: linear-gradient(135deg, hsl(258 90% 66%), hsl(330 81% 60%), hsl(43 96% 56%));
+    background: linear-gradient(135deg, hsl(239 84% 67%), hsl(263 70% 50%), hsl(330 81% 60%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
-  /* Background gradients */
   .bg-gradient-primary {
-    background: linear-gradient(135deg, hsl(258 90% 66%), hsl(263 78% 72%));
+    background: linear-gradient(135deg, hsl(239 84% 67%), hsl(263 70% 50%));
   }
   .bg-gradient-accent {
-    background: linear-gradient(135deg, hsl(330 81% 60%), hsl(25 95% 53%));
-  }
-
-  /* 3D button base */
-  .btn-3d {
-    box-shadow: 0 4px 0 hsl(258 90% 50%), 0 6px 12px hsl(258 90% 66% / 0.3);
-    transition: all 0.1s ease;
-  }
-  .btn-3d:active {
-    box-shadow: 0 1px 0 hsl(258 90% 50%), 0 2px 4px hsl(258 90% 66% / 0.3);
-    transform: translateY(3px) scale(0.96);
-  }
-
-  /* Family-specific button 3D */
-  .btn-3d-knowledge {
-    box-shadow: 0 4px 0 hsl(199 89% 45%), 0 6px 12px hsl(199 89% 60% / 0.3);
-  }
-  .btn-3d-knowledge:active {
-    box-shadow: 0 1px 0 hsl(199 89% 45%), 0 2px 4px hsl(199 89% 60% / 0.3);
-    transform: translateY(3px) scale(0.96);
-  }
-  .btn-3d-party {
-    box-shadow: 0 4px 0 hsl(25 95% 40%), 0 6px 12px hsl(25 95% 53% / 0.3);
-  }
-  .btn-3d-party:active {
-    box-shadow: 0 1px 0 hsl(25 95% 40%), 0 2px 4px hsl(25 95% 53% / 0.3);
-    transform: translateY(3px) scale(0.96);
-  }
-
-  /* Game card family border */
-  .family-border-knowledge { border-left: 4px solid hsl(199 89% 60%); }
-  .family-border-party { border-left: 4px solid hsl(25 95% 53%); }
-  .family-border-adult { border-left: 4px solid hsl(350 89% 60%); }
-  .family-border-solo { border-left: 4px solid hsl(263 78% 72%); }
-  .family-border-surprise { border-left: 4px solid hsl(43 96% 56%); }
-
-  /* Shake animation for wrong answers */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-6px); }
-    40% { transform: translateX(6px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
-  }
-  .animate-shake {
-    animation: shake 0.4s ease-out;
-  }
-
-  /* Coin rain */
-  @keyframes coin-rain {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(40px) rotate(360deg); opacity: 0; }
-  }
-  .animate-coin-rain {
-    animation: coin-rain 0.8s ease-out forwards;
-  }
-
-  /* Score pop */
-  @keyframes score-pop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-  }
-  .animate-score-pop {
-    animation: score-pop 0.3s ease-out;
+    background: linear-gradient(135deg, hsl(263 70% 50%), hsl(330 81% 60%));
   }
 }

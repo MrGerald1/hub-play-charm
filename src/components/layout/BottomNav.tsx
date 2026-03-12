@@ -12,7 +12,7 @@ const tabs = [
 
 const BottomNav = () => {
   return (
-    <nav className="sticky bottom-0 z-50 flex items-center justify-around border-t border-border bg-card/90 backdrop-blur-xl px-2 py-2 safe-area-pb">
+    <nav className="sticky bottom-0 z-50 flex items-center justify-around border-t border-border bg-card/80 backdrop-blur-xl px-2 py-2 safe-area-pb">
       {tabs.map(({ to, icon: Icon, label }) => (
         <NavLink
           key={to}
@@ -20,13 +20,13 @@ const BottomNav = () => {
           end={to === "/"}
           className={({ isActive }) =>
             cn(
-              "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 text-muted-foreground min-w-[48px] min-h-[48px] justify-center",
+              "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 text-muted-foreground",
               isActive && "text-primary glow-primary bg-primary/10"
             )
           }
         >
           <Icon className="h-5 w-5" />
-          <span className="text-[10px] font-semibold">{label}</span>
+          <span className="text-[10px] font-medium">{label}</span>
         </NavLink>
       ))}
     </nav>

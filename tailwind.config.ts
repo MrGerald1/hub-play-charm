@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "sans-serif"],
-        display: ["Fredoka", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+        display: ["Space Grotesk", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,17 +51,8 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Game family colors
-        knowledge: "hsl(var(--family-knowledge))",
-        party: "hsl(var(--family-party))",
-        adult: "hsl(var(--family-adult))",
-        solo: "hsl(var(--family-solo))",
-        surprise: "hsl(var(--family-surprise))",
-        // Feedback
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
-        error: "hsl(var(--error))",
-        coin: "hsl(var(--coin))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -100,14 +91,6 @@ export default {
           "50%": { transform: "scale(1.2)" },
           "100%": { transform: "scale(1)" },
         },
-        "float": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-6px)" },
-        },
-        "spin-slow": {
-          from: { transform: "rotate(0deg)" },
-          to: { transform: "rotate(360deg)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -115,8 +98,6 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "slide-up": "slide-up 0.3s ease-out",
         "count-tick": "count-tick 0.3s ease-out",
-        "float": "float 3s ease-in-out infinite",
-        "spin-slow": "spin-slow 30s linear infinite",
       },
     },
   },

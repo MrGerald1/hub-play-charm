@@ -2,32 +2,18 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import GameCard from "@/components/GameCard";
-import { games, categories, type Category, familyConfig } from "@/data/games";
+import { games, categories, type Category } from "@/data/games";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-
-const categoryLabels: Record<Category, string> = {
-  all: "All Games",
-  knowledge: "Knowledge",
-  party: "Party",
-  solo: "Solo Skill",
-  adult: "18+",
-};
 
 const Play = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category>("all");
-  const [show18Plus, setShow18Plus] = useState(false);
 
   const filtered = games.filter((g) => {
     const matchesSearch = g.name.toLowerCase().includes(search.toLowerCase());
-    if (activeCategory === "adult") {
-      return matchesSearch && g.is18Plus;
-    }
-    const matchesCategory = activeCategory === "all"
-      ? (!g.is18Plus || show18Plus)
-      : g.family === (activeCategory as string) || g.category === (activeCategory as string);
-    return matchesSearch && matchesCategory && (!g.is18Plus || show18Plus || activeCategory === ("adult" as Category));
+    const matchesCategory = activeCategory === "all" || g.category === activeCategory;
+    return matchesSearch && matchesCategory;
   });
 
   return (
@@ -50,28 +36,20 @@ const Play = () => {
 
       {/* Category chips */}
       <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-        {categories.map((cat) => {
-          const isAdult = cat === "adult";
-          return (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                if (isAdult) setShow18Plus(true);
-              }}
-              className={cn(
-                "px-4 py-1.5 rounded-full text-xs font-semibold capitalize whitespace-nowrap transition-all",
-                activeCategory === cat
-                  ? isAdult
-                    ? "bg-adult text-white"
-                    : "bg-primary text-primary-foreground glow-primary"
-                  : "bg-muted text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {categoryLabels[cat]}
-            </button>
-          );
-        })}
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={cn(
+              "px-4 py-1.5 rounded-full text-xs font-medium capitalize whitespace-nowrap transition-all",
+              activeCategory === cat
+                ? "bg-primary text-primary-foreground glow-primary"
+                : "bg-muted text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       {/* Game grid */}
