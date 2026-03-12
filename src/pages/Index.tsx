@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Gamepad2, Users, Zap } from "lucide-react";
+import { ArrowRight, Gamepad2, Users, Zap, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GameCard from "@/components/GameCard";
@@ -13,9 +13,9 @@ const Index = () => {
   const featured = games.filter((g) => g.featured);
 
   const steps = [
-    { icon: Gamepad2, title: "Create", desc: "Pick a game & create a room" },
-    { icon: Users, title: "Share", desc: "Share the code with friends" },
-    { icon: Zap, title: "Play", desc: "Play together instantly" },
+    { icon: Gamepad2, title: "Pick", desc: "Choose a game to play" },
+    { icon: Users, title: "Invite", desc: "Share code with friends" },
+    { icon: Zap, title: "Play!", desc: "Jump in & have fun" },
   ];
 
   return (
@@ -26,12 +26,20 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-4 pt-4"
       >
+        <motion.div
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200 }}
+          className="text-5xl mb-2"
+        >
+          🎮
+        </motion.div>
         <h1 className="text-3xl font-display font-bold leading-tight">
           Play Together,{" "}
           <span className="text-gradient">Anywhere</span>
         </h1>
         <p className="text-muted-foreground text-sm max-w-[280px] mx-auto">
-          Party games on your phone. No downloads, no signups — just fun.
+          Party games on your phone. No downloads, no signups — just fun! 🎉
         </p>
 
         {/* Join / Create CTAs */}
@@ -46,7 +54,7 @@ const Index = () => {
           <Button
             onClick={() => roomCode && navigate(`/room/${roomCode}`)}
             disabled={roomCode.length < 4}
-            className="bg-gradient-primary hover:opacity-90 text-primary-foreground font-display font-bold px-5"
+            className="bg-gradient-primary hover:opacity-90 text-primary-foreground font-display font-bold px-5 btn-3d"
           >
             Join
           </Button>
@@ -66,17 +74,24 @@ const Index = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="flex items-center justify-center gap-2 text-xs text-muted-foreground"
+        className="flex items-center justify-center gap-3 text-xs text-muted-foreground"
       >
-        <span className="h-2 w-2 rounded-full bg-success animate-pulse-glow" />
-        <span>1,240 players active now</span>
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-success animate-pulse-glow" />
+          <span>1,240 playing now</span>
+        </div>
+        <span className="text-border">•</span>
+        <div className="flex items-center gap-1">
+          <Coins className="h-3 w-3 text-warning" />
+          <span>Earn coins as you play!</span>
+        </div>
       </motion.div>
 
       {/* Featured Games */}
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-display font-bold text-lg text-foreground">Featured Games</h2>
-          <Button variant="link" size="sm" className="text-primary p-0 h-auto" onClick={() => navigate("/play")}>
+          <h2 className="font-display font-bold text-lg text-foreground">🔥 Featured</h2>
+          <Button variant="link" size="sm" className="text-primary p-0 h-auto font-display" onClick={() => navigate("/play")}>
             See all <ArrowRight className="h-3 w-3 ml-1" />
           </Button>
         </div>
@@ -97,10 +112,10 @@ const Index = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + i * 0.1 }}
-              className="flex-1 rounded-xl border border-border bg-card p-3 text-center space-y-2"
+              className="flex-1 rounded-2xl border border-border bg-card p-3 text-center space-y-2"
             >
-              <div className="mx-auto w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Icon className="h-4 w-4 text-primary" />
+              <div className="mx-auto w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
+                <Icon className="h-5 w-5 text-primary" />
               </div>
               <p className="font-display font-bold text-xs text-foreground">{title}</p>
               <p className="text-[10px] text-muted-foreground leading-tight">{desc}</p>
