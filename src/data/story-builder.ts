@@ -1,0 +1,48 @@
+export interface StoryStarter {
+  text: string;
+  genre: "funny" | "horror" | "romance" | "adventure" | "mystery" | "scifi";
+  tone: "silly" | "dramatic" | "suspenseful" | "wholesome" | "dark";
+}
+
+export const storyStarters: StoryStarter[] = [
+  { text: "I woke up and realized I was the only person left on Earth, but then I heard a knock on the door...", genre: "mystery", tone: "suspenseful" },
+  { text: "The wedding was going perfectly until the best man opened his mouth and said...", genre: "funny", tone: "silly" },
+  { text: "She swiped right on the dating app, and the person who showed up was...", genre: "romance", tone: "dramatic" },
+  { text: "The AI assistant suddenly stopped responding and instead displayed a single message:", genre: "scifi", tone: "suspenseful" },
+  { text: "I found a wallet on the street with ₦10 million inside and a note that read...", genre: "mystery", tone: "suspenseful" },
+  { text: "My grandmother always warned me never to open the door after midnight, but tonight...", genre: "horror", tone: "dark" },
+  { text: "The flight attendant announced they had good news and bad news. The good news was...", genre: "funny", tone: "silly" },
+  { text: "I accidentally sent a text meant for my crush to the family group chat, and it said...", genre: "funny", tone: "silly" },
+  { text: "The treasure map led us deep into the Amazon rainforest where we discovered...", genre: "adventure", tone: "dramatic" },
+  { text: "The fortune cookie at dinner read: 'You will meet your destiny at exactly 11:11 PM tonight.' At 11:10...", genre: "mystery", tone: "suspenseful" },
+  { text: "My cat started speaking in perfect English one Tuesday morning and the first thing it said was...", genre: "funny", tone: "silly" },
+  { text: "The elevator stopped between floors and a stranger turned to me and whispered...", genre: "horror", tone: "dark" },
+  { text: "I time-traveled to 2050 and the first thing I noticed was...", genre: "scifi", tone: "dramatic" },
+  { text: "We were playing truth or dare when someone dared me to...", genre: "funny", tone: "silly" },
+  { text: "The old house on the hill had been abandoned for 50 years until the lights came on last night and...", genre: "horror", tone: "dark" },
+  { text: "My phone buzzed with a text from my own number that said...", genre: "mystery", tone: "suspenseful" },
+  { text: "The new neighbor moved in at 3 AM carrying nothing but a single suitcase and a...", genre: "mystery", tone: "suspenseful" },
+  { text: "I won the lottery and the first thing I did was...", genre: "funny", tone: "silly" },
+  { text: "The spaceship landed in my backyard and out came a tiny alien who said...", genre: "scifi", tone: "silly" },
+  { text: "Our road trip took a wild turn when the GPS said 'Turn left into the ocean'...", genre: "adventure", tone: "silly" },
+  { text: "The detective opened the file and realized the suspect was someone they knew very well —", genre: "mystery", tone: "dramatic" },
+  { text: "I walked into the wrong classroom on the first day and accidentally became the professor for...", genre: "funny", tone: "silly" },
+  { text: "The last message in the group chat before everyone went silent was...", genre: "horror", tone: "dark" },
+  { text: "She opened the locket her mother gave her and inside was a photo of...", genre: "romance", tone: "dramatic" },
+  { text: "The chef tasted his creation and immediately knew something was wrong — it tasted like...", genre: "funny", tone: "silly" },
+  { text: "My reflection in the mirror winked at me, and then it...", genre: "horror", tone: "dark" },
+  { text: "The museum exhibit came alive at night and the dinosaur skeleton said...", genre: "adventure", tone: "silly" },
+  { text: "The love letter was 100 years old, and it was addressed to someone who looked exactly like...", genre: "romance", tone: "dramatic" },
+  { text: "I downloaded a mysterious app and it showed me exactly what would happen tomorrow —", genre: "scifi", tone: "suspenseful" },
+  { text: "The wedding planner called to say there was a small problem: the venue was now...", genre: "funny", tone: "silly" },
+  { text: "They say the old bridge grants one wish to anyone who crosses it at midnight. I wished for...", genre: "adventure", tone: "wholesome" },
+  { text: "My Uber driver took a wrong turn and we ended up at...", genre: "funny", tone: "silly" },
+  { text: "The pirate ship emerged from the fog, and on the deck stood...", genre: "adventure", tone: "dramatic" },
+  { text: "I opened my front door to find a basket with a baby dragon inside and a note that said...", genre: "adventure", tone: "wholesome" },
+  { text: "The first human colony on Mars was thriving until the day we discovered...", genre: "scifi", tone: "suspenseful" },
+  { text: "My crush finally texted back after 3 months and said...", genre: "romance", tone: "dramatic" },
+  { text: "I was chosen as the next contestant on a game show, but the challenge was to...", genre: "funny", tone: "silly" },
+  { text: "The painting in the gallery was so realistic that when I touched it, my hand...", genre: "horror", tone: "dark" },
+  { text: "The magic lamp had one rule: you can wish for anything except...", genre: "adventure", tone: "dramatic" },
+  { text: "I woke up on a Monday and realized it was actually Saturday. The catch was...", genre: "funny", tone: "silly" },
+];
