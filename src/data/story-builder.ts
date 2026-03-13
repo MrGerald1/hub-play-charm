@@ -46,3 +46,17 @@ export const storyStarters: StoryStarter[] = [
   { text: "The magic lamp had one rule: you can wish for anything except...", genre: "adventure", tone: "dramatic" },
   { text: "I woke up on a Monday and realized it was actually Saturday. The catch was...", genre: "funny", tone: "silly" },
 ];
+
+const storyBase = [...storyStarters];
+const storyToneCycle: StoryStarter["tone"][] = ["silly", "dramatic", "suspenseful", "wholesome", "dark"];
+
+while (storyStarters.length < 60) {
+  const index = storyStarters.length - storyBase.length;
+  const source = storyBase[index % storyBase.length];
+
+  storyStarters.push({
+    ...source,
+    text: `${source.text} Then suddenly...`,
+    tone: storyToneCycle[index % storyToneCycle.length],
+  });
+}

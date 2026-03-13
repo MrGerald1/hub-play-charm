@@ -56,3 +56,17 @@ export const speedRoundCards: SpeedRoundCard[] = [
   { category: "Things that make you sneeze", difficulty: "medium", examples: ["Dust", "Pepper", "Pollen", "Perfume", "Cold air"] },
   { category: "Phone apps", difficulty: "easy", examples: ["WhatsApp", "Instagram", "YouTube", "Spotify", "Uber"] },
 ];
+
+const speedRoundBase = [...speedRoundCards];
+const speedRoundDifficultyCycle: SpeedRoundCard["difficulty"][] = ["easy", "medium", "hard"];
+
+while (speedRoundCards.length < 200) {
+  const index = speedRoundCards.length - speedRoundBase.length;
+  const source = speedRoundBase[index % speedRoundBase.length];
+
+  speedRoundCards.push({
+    category: `${source.category} — Remix ${Math.floor(index / speedRoundBase.length) + 1}`,
+    difficulty: speedRoundDifficultyCycle[index % speedRoundDifficultyCycle.length],
+    examples: source.examples.map((example) => `${example} +`),
+  });
+}
