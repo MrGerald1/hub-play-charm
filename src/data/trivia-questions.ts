@@ -122,20 +122,3 @@ export const triviaQuestions: TriviaQuestion[] = [
 ];
 
 export const triviaCategories = ["science", "entertainment", "history", "sports", "art", "general"] as const;
-
-const triviaBase = [...triviaQuestions];
-const triviaDifficultyCycle: TriviaQuestion["difficulty"][] = ["easy", "medium", "hard"];
-const triviaRoundLabels = ["Lightning Round", "Double Points", "Sudden Death", "Final Boss"];
-
-while (triviaQuestions.length < 220) {
-  const index = triviaQuestions.length - triviaBase.length;
-  const base = triviaBase[index % triviaBase.length];
-  const label = triviaRoundLabels[Math.floor(index / triviaBase.length) % triviaRoundLabels.length];
-
-  triviaQuestions.push({
-    ...base,
-    id: triviaQuestions.length + 1,
-    question: `${base.question} — ${label}`,
-    difficulty: triviaDifficultyCycle[index % triviaDifficultyCycle.length],
-  });
-}

@@ -70,29 +70,3 @@ export const dareCards: DareCard[] = [
   { dare: "Read your most recent search history out loud", tier: "hot" },
   { dare: "Confess the biggest lie you've told someone here", tier: "hot" },
 ];
-
-const dareTargets: Record<DareCard["tier"], number> = {
-  mild: 50,
-  medium: 50,
-  hot: 50,
-};
-
-const dareBaseByTier = {
-  mild: dareCards.filter((card) => card.tier === "mild"),
-  medium: dareCards.filter((card) => card.tier === "medium"),
-  hot: dareCards.filter((card) => card.tier === "hot"),
-};
-
-(Object.keys(dareTargets) as DareCard["tier"][]).forEach((tier) => {
-  const base = dareBaseByTier[tier];
-  let pass = 1;
-
-  while (dareCards.filter((card) => card.tier === tier).length < dareTargets[tier]) {
-    const source = base[pass % base.length];
-    dareCards.push({
-      tier,
-      dare: `${source.dare} (Variant ${pass + 1})`,
-    });
-    pass += 1;
-  }
-});

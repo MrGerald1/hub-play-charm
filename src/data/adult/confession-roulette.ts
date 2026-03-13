@@ -50,29 +50,3 @@ export const confessionPrompts: ConfessionPrompt[] = [
   { prompt: "Confess the heaviest thing on your conscience right now", intensity: "heavy" },
   { prompt: "Confess something you wish you could undo", intensity: "heavy" },
 ];
-
-const confessionTargets: Record<ConfessionPrompt["intensity"], number> = {
-  light: 35,
-  medium: 35,
-  heavy: 30,
-};
-
-const confessionBaseByIntensity = {
-  light: confessionPrompts.filter((prompt) => prompt.intensity === "light"),
-  medium: confessionPrompts.filter((prompt) => prompt.intensity === "medium"),
-  heavy: confessionPrompts.filter((prompt) => prompt.intensity === "heavy"),
-};
-
-(Object.keys(confessionTargets) as ConfessionPrompt["intensity"][]).forEach((intensity) => {
-  const base = confessionBaseByIntensity[intensity];
-  let pass = 1;
-
-  while (confessionPrompts.filter((prompt) => prompt.intensity === intensity).length < confessionTargets[intensity]) {
-    const source = base[pass % base.length];
-    confessionPrompts.push({
-      intensity,
-      prompt: `${source.prompt} (Confessional ${pass + 1})`,
-    });
-    pass += 1;
-  }
-});

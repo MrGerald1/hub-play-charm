@@ -41,21 +41,3 @@ export const fishbowlRounds = [
   { round: 2, name: "Act It Out", rules: "No words allowed. Act it out like charades!", timeSeconds: 60 },
   { round: 3, name: "One Word", rules: "Say only ONE word to help your team guess. No gestures.", timeSeconds: 60 },
 ];
-
-const fishbowlBase = [...fishbowlPrompts];
-
-while (fishbowlPrompts.length < 120) {
-  const index = fishbowlPrompts.length - fishbowlBase.length;
-  const source = fishbowlBase[index % fishbowlBase.length];
-  fishbowlPrompts.push({
-    ...source,
-    text: `${source.text} (${Math.floor(index / fishbowlBase.length) + 2})`,
-  });
-}
-
-export const fishbowlThemedPacks = {
-  naijaNight: fishbowlPrompts.slice(0, 30),
-  movieMadness: fishbowlPrompts.slice(30, 60),
-  softLifeChaos: fishbowlPrompts.slice(60, 90),
-  wildcard: fishbowlPrompts.slice(90, 120),
-};

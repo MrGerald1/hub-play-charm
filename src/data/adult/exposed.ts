@@ -60,29 +60,3 @@ export const exposedCards: ExposedCard[] = [
   { statement: "Drink if you've ever used a dating app while in a relationship", category: "relationships" },
   { statement: "Drink if you've ever pretended to be over someone when you definitely weren't", category: "relationships" },
 ];
-
-const exposedTargets: Record<ExposedCard["category"], number> = {
-  general: 70,
-  nigerian: 65,
-  relationships: 65,
-};
-
-const exposedBaseByCategory = {
-  general: exposedCards.filter((card) => card.category === "general"),
-  nigerian: exposedCards.filter((card) => card.category === "nigerian"),
-  relationships: exposedCards.filter((card) => card.category === "relationships"),
-};
-
-(Object.keys(exposedTargets) as ExposedCard["category"][]).forEach((category) => {
-  const base = exposedBaseByCategory[category];
-  let pass = 1;
-
-  while (exposedCards.filter((card) => card.category === category).length < exposedTargets[category]) {
-    const source = base[pass % base.length];
-    exposedCards.push({
-      category,
-      statement: `${source.statement} (Round ${pass + 1})`,
-    });
-    pass += 1;
-  }
-});
