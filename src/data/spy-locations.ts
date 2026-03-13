@@ -58,3 +58,34 @@ export const spyLocations: SpyLocation[] = [
   { name: "Zombie Apocalypse Shelter", category: "unusual", roles: ["Leader", "Scout", "Medic", "Survivor"], questionPrompts: ["Is it safe outside?", "What supplies do you have?", "How many people are here?"] },
   { name: "Chocolate Factory", category: "unusual", roles: ["Owner", "Worker", "Inspector", "Taste Tester"], questionPrompts: ["What do you smell?", "What machines are running?", "Is it warm?"] },
 ];
+
+const spyTargets: Record<SpyLocation["category"], number> = {
+  nigerian: 16,
+  african: 16,
+  global: 16,
+  events: 16,
+  unusual: 16,
+};
+
+const spyBaseByCategory = {
+  nigerian: spyLocations.filter((location) => location.category === "nigerian"),
+  african: spyLocations.filter((location) => location.category === "african"),
+  global: spyLocations.filter((location) => location.category === "global"),
+  events: spyLocations.filter((location) => location.category === "events"),
+  unusual: spyLocations.filter((location) => location.category === "unusual"),
+};
+
+(Object.keys(spyTargets) as SpyLocation["category"][]).forEach((category) => {
+  const base = spyBaseByCategory[category];
+  let pass = 1;
+
+  while (spyLocations.filter((location) => location.category === category).length < spyTargets[category]) {
+    const source = base[pass % base.length];
+    spyLocations.push({
+      ...source,
+      name: `${source.name} — Variant ${pass + 1}`,
+      questionPrompts: source.questionPrompts.map((prompt) => `${prompt} (alt)`),
+    });
+    pass += 1;
+  }
+});

@@ -122,3 +122,31 @@ export const mostLikelyPrompts: MostLikelyPrompt[] = [
   { prompt: "Most likely to adopt a pet without consulting", edition: "couples" },
   { prompt: "Most likely to pick the restaurant", edition: "couples" },
 ];
+
+const mostLikelyTargets: Record<MostLikelyPrompt["edition"], number> = {
+  standard: 80,
+  nigerian: 60,
+  friends: 20,
+  couples: 20,
+};
+
+const mostLikelyBaseByEdition = {
+  standard: mostLikelyPrompts.filter((p) => p.edition === "standard"),
+  nigerian: mostLikelyPrompts.filter((p) => p.edition === "nigerian"),
+  friends: mostLikelyPrompts.filter((p) => p.edition === "friends"),
+  couples: mostLikelyPrompts.filter((p) => p.edition === "couples"),
+};
+
+(Object.keys(mostLikelyTargets) as MostLikelyPrompt["edition"][]).forEach((edition) => {
+  const base = mostLikelyBaseByEdition[edition];
+  let pass = 1;
+
+  while (mostLikelyPrompts.filter((p) => p.edition === edition).length < mostLikelyTargets[edition]) {
+    const source = base[pass % base.length];
+    mostLikelyPrompts.push({
+      prompt: `${source.prompt} (Round ${pass + 1})`,
+      edition,
+    });
+    pass += 1;
+  }
+});

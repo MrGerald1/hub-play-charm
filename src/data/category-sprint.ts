@@ -36,3 +36,15 @@ export const categorySprintCards: CategorySprintCard[] = [
   { category: "Sports played indoors", timeSeconds: 45, minItems: 4 },
   { category: "Famous songs", timeSeconds: 45, minItems: 5 },
 ];
+
+const categorySprintBase = [...categorySprintCards];
+
+while (categorySprintCards.length < 200) {
+  const index = categorySprintCards.length - categorySprintBase.length;
+  const source = categorySprintBase[index % categorySprintBase.length];
+  categorySprintCards.push({
+    category: `${source.category} — Blitz ${Math.floor(index / categorySprintBase.length) + 1}`,
+    timeSeconds: source.timeSeconds,
+    minItems: source.minItems,
+  });
+}

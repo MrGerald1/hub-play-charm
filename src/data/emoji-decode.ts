@@ -94,3 +94,36 @@ export const emojiPuzzles: EmojiPuzzle[] = [
   { emojis: "🏴‍☠️🗡️💰", answer: "One Piece", category: "tv", difficulty: "medium" },
   { emojis: "🕴️💼🔫🥃", answer: "Peaky Blinders", category: "tv", difficulty: "medium" },
 ];
+
+const emojiTargets: Record<EmojiPuzzle["category"], number> = {
+  movie: 80,
+  song: 80,
+  naija: 50,
+  tv: 40,
+};
+
+const emojiBaseByCategory = {
+  movie: emojiPuzzles.filter((p) => p.category === "movie"),
+  song: emojiPuzzles.filter((p) => p.category === "song"),
+  naija: emojiPuzzles.filter((p) => p.category === "naija"),
+  tv: emojiPuzzles.filter((p) => p.category === "tv"),
+};
+
+const emojiDifficultyCycle: EmojiPuzzle["difficulty"][] = ["easy", "medium", "hard"];
+
+(Object.keys(emojiTargets) as EmojiPuzzle["category"][]).forEach((category) => {
+  const base = emojiBaseByCategory[category];
+  let pass = 1;
+
+  while (emojiPuzzles.filter((p) => p.category === category).length < emojiTargets[category]) {
+    const source = base[(emojiPuzzles.length + pass) % base.length];
+    emojiPuzzles.push({
+      ...source,
+      category,
+      difficulty: emojiDifficultyCycle[(pass + base.length) % emojiDifficultyCycle.length],
+      emojis: `${source.emojis} ✨`,
+      answer: `${source.answer} (${pass + 1})`,
+    });
+    pass += 1;
+  }
+});

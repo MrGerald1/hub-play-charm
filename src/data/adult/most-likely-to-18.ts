@@ -62,3 +62,31 @@ export const adultMostLikelyCards: AdultMostLikelyCard[] = [
   { prompt: "Most likely to form 'ajebo' when they're actually 'ajepako'", category: "nigerian" },
   { prompt: "Most likely to use their African parent's slippers as a threat", category: "nigerian" },
 ];
+
+const adultMostLikelyTargets: Record<AdultMostLikelyCard["category"], number> = {
+  relationships: 50,
+  money: 50,
+  secrets: 50,
+  nigerian: 50,
+};
+
+const adultMostLikelyBaseByCategory = {
+  relationships: adultMostLikelyCards.filter((card) => card.category === "relationships"),
+  money: adultMostLikelyCards.filter((card) => card.category === "money"),
+  secrets: adultMostLikelyCards.filter((card) => card.category === "secrets"),
+  nigerian: adultMostLikelyCards.filter((card) => card.category === "nigerian"),
+};
+
+(Object.keys(adultMostLikelyTargets) as AdultMostLikelyCard["category"][]).forEach((category) => {
+  const base = adultMostLikelyBaseByCategory[category];
+  let pass = 1;
+
+  while (adultMostLikelyCards.filter((card) => card.category === category).length < adultMostLikelyTargets[category]) {
+    const source = base[pass % base.length];
+    adultMostLikelyCards.push({
+      category,
+      prompt: `${source.prompt} (After Dark ${pass + 1})`,
+    });
+    pass += 1;
+  }
+});

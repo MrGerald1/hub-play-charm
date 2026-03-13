@@ -71,3 +71,15 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Delivery Guardrail Checklist (PlayHub)
+
+To prevent partial deliveries on multi-phase asks, each run must follow this strict gate order:
+
+1. **Phase completion audit first** — check routes, UI states, and data counts before any “done” claim.
+2. **No legacy fallbacks** — clicking any game must open its new flow, not old room-only pages.
+3. **Seed-count gate** — verify target counts are met (or exceeded) for each required content file.
+4. **Feature gate per phase** — verify: design overhaul, game UIs, surprise wheel, 18+ gate, coins.
+5. **Test gate before handoff** — run tests and resolve blocking failures before reporting completion.
+
+If any gate fails, continue implementation until all five pass.

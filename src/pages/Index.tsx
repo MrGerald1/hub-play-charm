@@ -1,127 +1,87 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Gamepad2, Users, Zap, Coins } from "lucide-react";
+import { ArrowRight, Coins, Users, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GameCard from "@/components/GameCard";
+import SurpriseWheel from "@/components/SurpriseWheel";
 import { games } from "@/data/games";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import heroImage from "@/assets/playhub-hero.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
   const [roomCode, setRoomCode] = useState("");
-  const featured = games.filter((g) => g.featured);
-
-  const steps = [
-    { icon: Gamepad2, title: "Pick", desc: "Choose a game to play" },
-    { icon: Users, title: "Invite", desc: "Share code with friends" },
-    { icon: Zap, title: "Play!", desc: "Jump in & have fun" },
-  ];
+  const featured = games.filter((g) => g.featured).slice(0, 6);
 
   return (
-    <div className="px-5 py-6 pb-4 space-y-8">
-      {/* Hero */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center space-y-4 pt-4"
-      >
-        <motion.div
-          initial={{ scale: 0.8 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 200 }}
-          className="text-5xl mb-2"
-        >
-          🎮
-        </motion.div>
-        <h1 className="text-3xl font-display font-bold leading-tight">
-          Play Together,{" "}
-          <span className="text-gradient">Anywhere</span>
-        </h1>
-        <p className="text-muted-foreground text-sm max-w-[280px] mx-auto">
-          Party games on your phone. No downloads, no signups — just fun! 🎉
-        </p>
+    <div className="space-y-7 pb-24">
+      <section className="relative overflow-hidden">
+        <img src={heroImage} alt="Friends playing party games on mobile" className="h-[46vh] w-full object-cover" loading="eager" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/10" />
 
-        {/* Join / Create CTAs */}
-        <div className="flex gap-2 pt-2">
-          <Input
-            placeholder="Room code"
-            value={roomCode}
-            onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-            maxLength={6}
-            className="flex-1 text-center font-display font-bold tracking-widest uppercase bg-muted border-border placeholder:text-muted-foreground/50"
-          />
-          <Button
-            onClick={() => roomCode && navigate(`/room/${roomCode}`)}
-            disabled={roomCode.length < 4}
-            className="bg-gradient-primary hover:opacity-90 text-primary-foreground font-display font-bold px-5 btn-3d"
-          >
-            Join
+        <div className="absolute inset-x-0 bottom-0 px-5 pb-6 space-y-3">
+          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl leading-none text-foreground">
+            Viral party games,<br />built for phones.
+          </motion.h1>
+          <p className="text-sm text-foreground/90 max-w-[34ch]">Spin, vote, bluff, and roast your friends in seconds — no downloads, instant room codes.</p>
+
+          <div className="flex gap-2 pt-1">
+            <Input
+              placeholder="Room code"
+              value={roomCode}
+              onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+              maxLength={6}
+              className="flex-1 text-center font-display tracking-widest uppercase bg-background/80"
+            />
+            <Button onClick={() => roomCode && navigate(`/room/${roomCode}`)} disabled={roomCode.length < 4} className="btn-3d px-5">
+              Join
+            </Button>
+          </div>
+
+          <Button onClick={() => navigate("/play")} variant="outline" className="w-full">
+            Browse All Games <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
         </div>
-        <Button
-          onClick={() => navigate("/play")}
-          variant="outline"
-          className="w-full border-primary/30 text-primary hover:bg-primary/10 font-display"
-        >
-          Create a Room
-          <ArrowRight className="h-4 w-4 ml-1" />
-        </Button>
-      </motion.section>
+      </section>
 
-      {/* Active players ticker */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        className="flex items-center justify-center gap-3 text-xs text-muted-foreground"
-      >
+      <div className="px-5 flex items-center justify-between text-xs text-muted-foreground">
         <div className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-success animate-pulse-glow" />
           <span>1,240 playing now</span>
         </div>
-        <span className="text-border">•</span>
         <div className="flex items-center gap-1">
-          <Coins className="h-3 w-3 text-warning" />
-          <span>Earn coins as you play!</span>
+          <Coins className="h-3.5 w-3.5 text-warning" />
+          <span>Daily coin rewards live</span>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Featured Games */}
-      <section className="space-y-3">
+      <div className="px-5">
+        <SurpriseWheel />
+      </div>
+
+      <section className="px-5 space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-display font-bold text-lg text-foreground">🔥 Featured</h2>
-          <Button variant="link" size="sm" className="text-primary p-0 h-auto font-display" onClick={() => navigate("/play")}>
-            See all <ArrowRight className="h-3 w-3 ml-1" />
-          </Button>
+          <h2 className="font-display text-xl text-foreground">🔥 Featured right now</h2>
+          <Button variant="link" className="p-0 h-auto" onClick={() => navigate("/play")}>See all</Button>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          {featured.map((game, i) => (
-            <GameCard key={game.id} game={game} index={i} featured />
-          ))}
+          {featured.map((game, i) => <GameCard key={game.id} game={game} index={i} featured />)}
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="space-y-3">
-        <h2 className="font-display font-bold text-lg text-foreground">How it works</h2>
-        <div className="flex gap-3">
-          {steps.map(({ icon: Icon, title, desc }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + i * 0.1 }}
-              className="flex-1 rounded-2xl border border-border bg-card p-3 text-center space-y-2"
-            >
-              <div className="mx-auto w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
-                <Icon className="h-5 w-5 text-primary" />
-              </div>
-              <p className="font-display font-bold text-xs text-foreground">{title}</p>
-              <p className="text-[10px] text-muted-foreground leading-tight">{desc}</p>
-            </motion.div>
-          ))}
-        </div>
+      <section className="px-5 grid grid-cols-3 gap-2">
+        {[
+          { icon: Zap, title: "Pick", desc: "Choose any mode" },
+          { icon: Users, title: "Invite", desc: "Share code instantly" },
+          { icon: Coins, title: "Earn", desc: "Coins every round" },
+        ].map(({ icon: Icon, title, desc }) => (
+          <div key={title} className="rounded-2xl border border-border bg-card p-3 text-center space-y-2">
+            <div className="mx-auto h-9 w-9 rounded-xl bg-primary/15 flex items-center justify-center"><Icon className="h-4 w-4 text-primary" /></div>
+            <p className="font-display text-xs text-foreground">{title}</p>
+            <p className="text-[10px] text-muted-foreground">{desc}</p>
+          </div>
+        ))}
       </section>
     </div>
   );

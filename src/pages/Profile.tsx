@@ -1,85 +1,103 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { LogIn, Flame, Trophy, Gamepad2, Crown } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Coins, Flame, LogIn, Settings2, ShieldAlert, Trophy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const stats = [
-  { label: "Games Played", value: "47", icon: Gamepad2 },
-  { label: "Win Rate", value: "68%", icon: Trophy },
-  { label: "Day Streak", value: "12", icon: Flame },
-  { label: "Best Score", value: "2,450", icon: Crown },
-];
-
-const recentGames = [
-  { game: "🎭 Charades", result: "Won", score: 450, date: "Today" },
-  { game: "🧠 Quiz", result: "3rd", score: 280, date: "Yesterday" },
-  { game: "🚫 Taboo", result: "Won", score: 520, date: "2 days ago" },
-];
+import { usePlayHubSettings } from "@/hooks/usePlayHubSettings";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { formattedCoins, adultEnabled, setAdultEnabled } = usePlayHubSettings();
+  const [pendingAdultToggle, setPendingAdultToggle] = useState(false);
 
   return (
-    <div className="px-5 py-6 space-y-6">
-      {/* Avatar & name */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-primary flex items-center justify-center text-2xl font-display font-bold text-primary-foreground">
-          G
-        </div>
-        <div>
-          <h1 className="font-display font-bold text-xl text-foreground">Guest Player</h1>
-          <div className="flex items-center gap-2 mt-1">
-            <Badge className="bg-muted text-muted-foreground border-0 text-[10px]">Free Tier</Badge>
-            <Badge className="bg-warning/20 text-warning border-0 text-[10px]">
-              <Flame className="h-3 w-3 mr-0.5" /> 12 day streak
-            </Badge>
+    <div className="px-5 py-6 space-y-6 pb-24">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-3xl border border-border bg-card p-5 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="h-16 w-16 rounded-2xl bg-gradient-primary flex items-center justify-center text-2xl font-display text-primary-foreground">G</div>
+          <div>
+            <h1 className="font-display text-2xl text-foreground">Guest Player</h1>
+            <div className="flex items-center gap-2 mt-1">
+              <Badge className="bg-warning/20 text-warning border-0"><Flame className="h-3 w-3 mr-1" />12 day streak</Badge>
+              <Badge variant="secondary">Starter tier</Badge>
+            </div>
           </div>
         </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          <div className="rounded-xl border border-border bg-muted/40 p-3 text-center">
+            <Coins className="h-4 w-4 mx-auto text-warning" />
+            <p className="font-display text-foreground">{formattedCoins}</p>
+            <p className="text-[10px] text-muted-foreground">Coins</p>
+          </div>
+          <div className="rounded-xl border border-border bg-muted/40 p-3 text-center">
+            <Trophy className="h-4 w-4 mx-auto text-primary" />
+            <p className="font-display text-foreground">#24</p>
+            <p className="text-[10px] text-muted-foreground">Rank</p>
+          </div>
+          <div className="rounded-xl border border-border bg-muted/40 p-3 text-center">
+            <Flame className="h-4 w-4 mx-auto text-warning" />
+            <p className="font-display text-foreground">47</p>
+            <p className="text-[10px] text-muted-foreground">Games</p>
+          </div>
+        </div>
+
+        <Button onClick={() => navigate("/auth")} className="w-full btn-3d">
+          <LogIn className="h-4 w-4 mr-2" /> Sign in to sync progress
+        </Button>
       </motion.div>
 
-      {/* Sign in CTA */}
-      <Button
-        onClick={() => navigate("/auth")}
-        className="w-full bg-gradient-primary text-primary-foreground font-display font-bold"
-      >
-        <LogIn className="h-4 w-4 mr-2" /> Sign in to save progress
-      </Button>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 gap-3">
-        {stats.map(({ label, value, icon: Icon }, i) => (
-          <motion.div
-            key={label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className="p-4 rounded-xl bg-card border border-border text-center space-y-1"
-          >
-            <Icon className="h-4 w-4 mx-auto text-primary" />
-            <p className="font-display font-bold text-xl text-foreground">{value}</p>
-            <p className="text-[10px] text-muted-foreground">{label}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Recent games */}
-      <section className="space-y-3">
-        <h2 className="font-display font-bold text-foreground">Recent Games</h2>
-        {recentGames.map((g, i) => (
-          <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-card border border-border">
-            <span className="text-lg">{g.game.split(" ")[0]}</span>
-            <div className="flex-1">
-              <p className="text-sm font-medium text-foreground">{g.game.split(" ").slice(1).join(" ")}</p>
-              <p className="text-[10px] text-muted-foreground">{g.date}</p>
-            </div>
-            <Badge className={`border-0 text-[10px] ${g.result === "Won" ? "bg-success/20 text-success" : "bg-muted text-muted-foreground"}`}>
-              {g.result}
-            </Badge>
-            <span className="text-xs font-display font-bold text-primary">{g.score}</span>
+      <section className="rounded-3xl border border-border bg-card p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="font-display text-lg text-foreground">Content Controls</h2>
+            <p className="text-xs text-muted-foreground">Manage family-safe and 18+ game visibility.</p>
           </div>
-        ))}
+          <Settings2 className="h-4 w-4 text-muted-foreground" />
+        </div>
+
+        <div className="rounded-2xl border border-border p-4 flex items-center justify-between">
+          <div className="space-y-1">
+            <p className="text-sm text-foreground flex items-center gap-1"><ShieldAlert className="h-4 w-4 text-family-adult" /> 18+ Adult Games</p>
+            <p className="text-xs text-muted-foreground">Unlock Exposed, Dare Levels, Confession Roulette, and Spicy Truths.</p>
+          </div>
+          <Switch
+            checked={adultEnabled}
+            onCheckedChange={(checked) => {
+              if (checked && !adultEnabled) {
+                setPendingAdultToggle(true);
+              } else {
+                setAdultEnabled(false);
+              }
+            }}
+          />
+        </div>
       </section>
+
+      <AlertDialog open={pendingAdultToggle} onOpenChange={setPendingAdultToggle}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Enable 18+ content?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This unlocks adult party decks and includes mature prompts.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setAdultEnabled(true);
+                setPendingAdultToggle(false);
+              }}
+            >
+              I am 18+
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
